@@ -34,7 +34,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
                 return BadRequest(ModelState);
 
 
-            var customer = await _customerService.Retrieve(model.Username);
+            var customer = await _customerService.Get(model.Username);
 
             if (customer == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });

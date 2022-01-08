@@ -10,9 +10,9 @@ namespace POC_GITHUB_06012022.v1.Repository
     {
         Task<CustomerAddress> Save(CustomerAddress customerAddress);
 
-        Task<CustomerAddress> Retrieve(string name);
+        Task<CustomerAddress> Get(string name);
 
-        Task<CustomerAddress> Retrieve(long id);
+        Task<CustomerAddress> Get(long id);
 
 
     }

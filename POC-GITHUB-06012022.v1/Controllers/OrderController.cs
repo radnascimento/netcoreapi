@@ -49,14 +49,14 @@ namespace POC_GITHUB_06012022.v1.Controllers
             {
                 IdOrder = 1,
                 IdCustomer = 1,
-                IdStateOrder = (int)EnumStateOrder.Register,
+                IdStateOrder = (int)EnumStateOrder.Saved,
                 Id = 1,
                 DateOperation = DateTime.Now,
                 Itens = new List<OrderItem>()
             };
 
-            order.Itens.Add(new OrderItem { IdOrderItem = 1, IdOrder = 1, IdProduct = 1, Quantity = 250, UnitPrice = Convert.ToDecimal(1200.14), IdStateOrderItem = (int)EnumStateOrderItem.Register });
-            order.Itens.Add(new OrderItem { IdOrderItem = 2, IdOrder = 1, IdProduct = 2, Quantity = 10, UnitPrice = Convert.ToDecimal(200.01), IdStateOrderItem = (int)EnumStateOrderItem.Register });
+            order.Itens.Add(new OrderItem { IdOrderItem = 1, IdOrder = 1, IdProduct = 1, Quantity = 250, UnitPrice = Convert.ToDecimal(1200.14), IdStateOrderItem = (int)EnumStateOrderItem.Saved });
+            order.Itens.Add(new OrderItem { IdOrderItem = 2, IdOrder = 1, IdProduct = 2, Quantity = 10, UnitPrice = Convert.ToDecimal(200.01), IdStateOrderItem = (int)EnumStateOrderItem.Saved });
 
             _orderService.Save(order);
 

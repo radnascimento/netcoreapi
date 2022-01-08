@@ -23,19 +23,51 @@ namespace POC_GITHUB_06012022.v1.Repository
             return _pOCContext.Products.ToList();
         }
 
-        public async Task Save(Product product)
+        public async Task<Product> Save(Product product)
         {
             product.DateOperation = DateTime.Now;
-            product.IdStateProduct = (int)EnumProduct.Register;
 
             _pOCContext.Products.Add(product);
 
             await _pOCContext.SaveChangesAsync();
+
+            return product;
         }
 
         public async Task<Product> Get(long id)
         {
             return _pOCContext.Products.Where(x => x.IdProduct == id).FirstOrDefault();
+        }
+
+        public async Task<Product> Update(Product product)
+        {
+            product.DateOperation = DateTime.Now;
+
+            _pOCContext.Products.Update(product);
+
+            await _pOCContext.SaveChangesAsync();
+
+            await SaveHistory(product.IdProduct);
+
+            return product;
+        }
+
+        public async Task Delete(Product product)
+        {
+            product.DateOperation = DateTime.Now;
+
+            _pOCContext.Products.Update(product);
+
+            await _pOCContext.SaveChangesAsync();
+
+            await SaveHistory(product.IdProduct);
+            
+        }
+
+        //lixo
+        public async Task SaveHistory(long id)
+        {
+            //todo
         }
     }
 }

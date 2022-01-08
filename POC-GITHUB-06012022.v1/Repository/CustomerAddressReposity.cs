@@ -15,7 +15,7 @@ namespace POC_GITHUB_06012022.v1.Repository
         {
             _pOCContext = pOCContext;
         }
-        public async Task<CustomerAddress> Retrieve(string name)
+        public async Task<CustomerAddress> Get(string name)
         {
             List<CustomerAddress> data = new List<CustomerAddress>();
 
@@ -29,7 +29,7 @@ namespace POC_GITHUB_06012022.v1.Repository
                 customerAddress.DateOperation = DateTime.Now;
                 _pOCContext.CustomerAddress.Add(customerAddress);
                 await _pOCContext.SaveChangesAsync();
-                
+
                 return customerAddress;
             }
             catch (Exception ex)
@@ -38,11 +38,11 @@ namespace POC_GITHUB_06012022.v1.Repository
             }
         }
 
-        public async Task<CustomerAddress> Retrieve(long id)
+        public async Task<CustomerAddress> Get(long id)
         {
-            var customeradress =  _pOCContext.CustomerAddress.Where(x=> x.IdCustomer == id) .ToList().FirstOrDefault();
+            var customeradress = _pOCContext.CustomerAddress.Where(x => x.IdCustomer == id).ToList().FirstOrDefault();
 
-            customeradress.Customer = null;
+            if (customeradress != null) customeradress.Customer = null;
 
             return customeradress;
         }

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace POC_GITHUB_06012022.v1.Enum
 {
-    public enum EnumStateCustomer
+    public enum EnumStateProduct
     {
         Deleted = -1,
         Saved = 1,
-        Updated =  2,
+        Updated = 2,
     }
 }

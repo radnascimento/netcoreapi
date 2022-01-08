@@ -7,7 +7,8 @@ namespace POC_GITHUB_06012022.v1.Enum
 {
     public enum EnumStateOrder
     {
-        Disable = -1,
-        Register = 1,  
+        Deleted = -1,
+        Saved = 1,
+        Updated = 2,
     }
 }

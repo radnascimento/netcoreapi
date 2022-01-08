@@ -18,7 +18,7 @@ namespace POC_GITHUB_06012022.v1.Services
 
         public async Task Save(Order order)
         {
-            order.IdStateOrder = (int)EnumStateOrder.Register;
+            order.IdStateOrder = (int)EnumStateOrder.Saved;
             await _orderRepository.Save(order);
         }
 

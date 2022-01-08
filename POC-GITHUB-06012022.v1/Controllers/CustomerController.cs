@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
 using POC_GITHUB_06012022.v1.Services;
 using System.Threading.Tasks;
-using AutoMapper;
-using Newtonsoft.Json;
-using POC_GITHUB_06012022.v1.Model;
-using POC_GITHUB_06012022.v1.Repository;
-using Microsoft.AspNetCore.Authorization;
-using POC_GITHUB_06012022.v1.Enum;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,33 +31,25 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(JsonConvert.SerializeObject(await _customerService.GetAll()));
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Get(int id)
         {
-            var customer = await _customerService.Retrieve(id);
-
-            if (customer != null)
-                return Ok(JsonConvert.SerializeObject(customer));
-            else
-                return NotFound();
+            return Ok(JsonConvert.SerializeObject(await _customerService.Get(id)));
         }
 
 
         [HttpPost]
-        //[Authorize(Roles = "employee,manager")]
         public async Task<Customer> Post([FromBody] CustomerDto value)
         {
 
-            if (!ModelState.IsValid)           // Invokes the build-in
-                return null;
-
+            if (!ModelState.IsValid) return null;
 
             var customer = await _customerService.Save(_mapper.Map<Customer>(value));
 
@@ -70,7 +59,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         [HttpPost]
         [Route("IncludeAddress")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> IncludeAddress([FromBody] CustomerAddressDto customerAddress)
         {
             if (!ModelState.IsValid)           // Invokes the build-in
@@ -79,29 +68,24 @@ namespace POC_GITHUB_06012022.v1.Controllers
             return Ok(await _customerAddressService.Save(_mapper.Map<CustomerAddress>(customerAddress)));
         }
 
-
-        [HttpGet]
-        [Route("GetAddress")]
-        [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> GetAddress(long idCustomer)
-        {
-            var address = await _customerAddressService.Retrieve(idCustomer);
-
-            return Ok(address);
-        }
-      
         [HttpPut("{id}")]
-        //[Authorize(Roles = "employee,manager")]
-        public async Task Put(int id, [FromBody] string value)
+        [Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Put(long id, [FromBody] CustomerDto value)
         {
+            var customer = _mapper.Map<Customer>(value);
+            customer.IdCustomer = id;
+            await _customerService.Update(customer);
+            
+            return Ok();
         }
+
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Delete(int id)
         {
-            var customer =  await _customerService.Retrieve(id);
-            
+            var customer = await _customerService.Get(id);
+
             if (customer == null) return NotFound();
 
             await _customerService.Delete(customer);
@@ -109,7 +93,5 @@ namespace POC_GITHUB_06012022.v1.Controllers
             return Ok();
 
         }
-
-
     }
 }

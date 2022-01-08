@@ -15,20 +15,20 @@ namespace POC_GITHUB_06012022.v1.Services
             _customerAddressReposity = customerAddressReposity;
         }
 
-        public async Task<CustomerAddress> Retrieve(string name)
+        public async Task<CustomerAddress> Get(string name)
         {
-            return await _customerAddressReposity.Retrieve(name);
+            return await _customerAddressReposity.Get(name);
         }
 
         public  async Task<CustomerAddress> Save(CustomerAddress customer)
         {
-            customer.IdStateCustomerAddress = (int)EnumCustomerAddress.Register;
+            customer.IdStateCustomerAddress = (int)EnumCustomerAddress.Saved;
             return await _customerAddressReposity.Save(customer);
         }
 
-        public async Task<CustomerAddress> Retrieve(long id)
+        public async Task<CustomerAddress> Get(long id)
         {
-            return await _customerAddressReposity.Retrieve(id);
+            return await _customerAddressReposity.Get(id);
 
         }
 

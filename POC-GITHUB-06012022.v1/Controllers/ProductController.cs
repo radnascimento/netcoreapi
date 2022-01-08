@@ -4,9 +4,7 @@ using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
 using POC_GITHUB_06012022.v1.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,7 +24,6 @@ namespace POC_GITHUB_06012022.v1.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
         [Route("GetAll")]
         //[Authorize(Roles = "employee,manager")]
@@ -36,45 +33,52 @@ namespace POC_GITHUB_06012022.v1.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Get(int id)
         {
             return Ok(JsonConvert.SerializeObject(await _productService.Get(id)));
         }
 
-        //public ProductController(Iprodu)
-        //{ 
-        //}
 
-
-
-        //[HttpGet]
-        //[Route("GetAll")]
-        ////[Authorize(Roles = "employee,manager")]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    return Ok(JsonConvert.SerializeObject(await _orderService.GetAll()));
-        //}
-
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-      
         [HttpPost]
-        public async Task Post([FromBody] ProductDto product)
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<Product> Post([FromBody] ProductDto value)
         {
-            await _productService.Save(_mapper.Map<Product>(product));
+
+            if (!ModelState.IsValid) return null;
+
+            var product = await _productService.Save(_mapper.Map<Product>(value));
+
+            return product;
         }
+
+
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Put(long id, [FromBody] ProductDto value)
         {
+            var product = _mapper.Map<Product>(value);
+            product.IdProduct = id;
+            await _productService.Update(product);
+
+            return Ok();
         }
 
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Delete(int id)
         {
+            var customer = await _productService.Get(id);
+
+            if (customer == null) return NotFound();
+
+            await _productService.Delete(customer);
+
+            return Ok();
+
         }
+
     }
 }

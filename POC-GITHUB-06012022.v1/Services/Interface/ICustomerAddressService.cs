@@ -10,8 +10,8 @@ namespace POC_GITHUB_06012022.v1.Services
     public interface ICustomerAddressService
     {
         Task<CustomerAddress> Save(CustomerAddress customer);
-        Task<CustomerAddress> Retrieve(string name);
+        Task<CustomerAddress> Get(string name);
 
-        Task<CustomerAddress> Retrieve(long id);
+        Task<CustomerAddress> Get(long id);
     }
 }

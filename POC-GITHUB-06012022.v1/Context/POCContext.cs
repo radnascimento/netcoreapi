@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using POC_GITHUB_06012022.v1.Entity;
+using POC_GITHUB_06012022.v1.Entity.History;
 using System.Reflection;
 
 namespace POC_GITHUB_06012022.v1.Context
@@ -16,6 +17,10 @@ namespace POC_GITHUB_06012022.v1.Context
         public DbSet<CustomerAddress> CustomerAddress { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        //History
+        public DbSet<CustomerHistory> CustomerHistory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,10 +48,10 @@ namespace POC_GITHUB_06012022.v1.Context
             modelBuilder.Entity<CustomerAddress>().Property(p => p.DateOperation).IsRequired();
 
 
-            modelBuilder.Entity<CustomerAddress>()
-                .HasOne(p => p.Customer)
-                .WithMany(b => b.CustomerAddress)
-                .HasForeignKey("CustomerAddressCustomerFK");
+            //modelBuilder.Entity<CustomerAddress>()
+            //    .HasOne(p => p.Customer)
+            //    .WithMany(b => b.CustomerAddress)
+            //    .HasForeignKey("CustomerAddressCustomerFK");
 
 
         }

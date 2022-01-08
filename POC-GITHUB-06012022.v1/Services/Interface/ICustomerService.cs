@@ -9,11 +9,14 @@ namespace POC_GITHUB_06012022.v1.Services
 {
     public interface ICustomerService
     {
-        Task<Customer> Save(Customer customer);
-        Task<Customer> Retrieve(string name);
-
-        Task<Customer> Retrieve(long id);
+        Task<Customer> Update(Customer customer);
         Task Delete(Customer customer);
+
+
+        Task<Customer> Save(Customer customer);
+        Task<Customer> Get(string name);
+
+        Task<Customer> Get(long id);
         Task<List<Customer>> GetAll();
     }
 }
