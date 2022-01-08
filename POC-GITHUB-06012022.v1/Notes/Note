@@ -1,0 +1,78 @@
+============>>>> Customer
+{
+  "NameCustomer": "Rogerio",
+  "EmailCustomer": "rogerio@gmail.com",
+  "Password": "1234"
+}
+
+
+{
+  "IdCustomer": 1,
+  "NameCustomer": "Rogerio",
+  "EmailCustomer": "rogerio@gmail.com",
+  "Password": "1234",
+  "DateOperation": "2022-01-07T15:29:03.4762813-03:00"
+}
+============>>>> Autenticate
+
+{
+  "Username": "Rogerio",
+  "Password": "1234"
+}
+
+
+{
+  "user": {
+    "Id": 1,
+    "Username": "Rogerio",
+    "Password": "",
+    "Role": "manager"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlJvZ2VyaW8iLCJyb2xlIjoibWFuYWdlciIsIm5iZiI6MTY0MTU4MDc1NSwiZXhwIjoxNjQxNTg3OTU1LCJpYXQiOjE2NDE1ODA3NTV9.bOgmmvlDUd3h196Zei5emcmvVrzBIhvY4IeLRNhoJZY"
+}
+
+
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlJvZ2VyaW8iLCJyb2xlIjoibWFuYWdlciIsIm5iZiI6MTY0MTU4MDc1NSwiZXhwIjoxNjQxNTg3OTU1LCJpYXQiOjE2NDE1ODA3NTV9.bOgmmvlDUd3h196Zei5emcmvVrzBIhvY4IeLRNhoJZY
+
+============>>>> CustomerAddress
+{
+  "IdCustomer": 1,
+  "StreetName": "Paulista Av. 900",
+  "CityName": "São Paulo",
+  "StateName": "SP",
+  "ZipCode": 9999000,
+  "Id": 0
+}
+
+
+{
+  "IdCustomerAddress": 1,
+  "IdCustomer": 1,
+  "StreetName": "Paulista Av. 900",
+  "CityName": "São Paulo",
+  "StateName": "SP",
+  "ZipCode": 9999000,
+  "IdStateCustomerAddress": 0,
+  "Id": 0,
+  "DateOperation": "2022-01-07T15:37:06.9602535-03:00",
+  "Customer": null
+}
+
+
+==========================
+How to use this Rest api
+==========================
+1.	Create account "/api/Customer"
+2.	Take authorization token "/api/Login/Authenticate"
+
+==========================
+What to do
+==========================
+1.	Register  Customer and Customer address
+2.	Create Product
+3.	Create Order
+
+
+
+
+
