@@ -27,7 +27,7 @@ namespace POC_GITHUB_06012022.v1.Repository
             {
                 //save order
                 var itens = order.Itens;
-                
+
                 order.Itens = null;
 
                 order.DateOperation = DateTime.Now;
@@ -90,7 +90,7 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<Order> Get(long id)
         {
-            var order =  _pOCContext.Orders.AsNoTracking().Where(x => x.IdOrder == id).FirstOrDefault();
+            var order = _pOCContext.Orders.AsNoTracking().Where(x => x.IdOrder == id).FirstOrDefault();
 
             var orderitens = _pOCContext.OrderItens.AsNoTracking().Where(x => x.IdOrder == order.IdOrder).ToList();
 
@@ -101,6 +101,25 @@ namespace POC_GITHUB_06012022.v1.Repository
             }
 
             return order;
+        }
+
+        public async Task Update(Order order)
+        {
+            order.DateOperation = DateTime.Now;
+            order.IdStateOrder = (int)EnumStateOrder.Updated;
+            _pOCContext.Orders.Update(order);
+
+            await _pOCContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(Order order)
+        {
+            order.DateOperation = DateTime.Now;
+            order.IdStateOrder = (int)EnumStateOrder.Deleted;
+            
+            _pOCContext.Orders.Update(order);
+
+            await _pOCContext.SaveChangesAsync();
         }
     }
 }

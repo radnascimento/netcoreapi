@@ -34,5 +34,15 @@ namespace POC_GITHUB_06012022.v1.Services
         {
             return await _orderRepository.Get(id);
         }
+
+        public async Task Update(Order order)
+        {
+            await _orderRepository.Update(order);
+        }
+
+        public async Task Delete(Order id)
+        {
+            await _orderRepository.Delete(id);
+        }
     }
 }

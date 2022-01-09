@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
@@ -19,15 +20,17 @@ namespace POC_GITHUB_06012022.v1.Controllers
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
         private readonly ICustomerAddressService _customerAddressService;
+        private readonly ILogger<CustomerController> _logger;
 
         public CustomerController(ICustomerService customerService,
-            IMapper mapper, ICustomerAddressService customerAddressService
+            IMapper mapper, ICustomerAddressService customerAddressService,
+            ILogger<CustomerController> logger
             )
         {
             _customerService = customerService;
             _mapper = mapper;
             _customerAddressService = customerAddressService;
-
+            _logger = logger;
         }
 
         [HttpGet]

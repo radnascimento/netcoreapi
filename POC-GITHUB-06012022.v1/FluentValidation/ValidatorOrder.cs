@@ -13,7 +13,7 @@ namespace POC_GITHUB_06012022.v1.Validator
         public ValidatorOrder()
         {
             //Order
-            RuleFor(x=> x.IdCustomer).NotEqual(x=> 0);
+            RuleFor(x => x.IdCustomer).NotEqual(x => 0);
             RuleFor(x => x.IdTypePayment).NotEqual(x => 0);
             RuleFor(x => x.IdTypeDelivery).NotEqual(x => 0);
             RuleFor(x => x.IdAddressDelivery).NotEqual(x => 0);

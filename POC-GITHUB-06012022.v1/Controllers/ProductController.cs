@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
@@ -19,14 +20,17 @@ namespace POC_GITHUB_06012022.v1.Controllers
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IProductService productService, IMapper mapper)
+        public ProductController(IProductService productService, IMapper mapper, ILogger<ProductController> logger)
         {
             _productService = productService;
             _mapper = mapper;
+            _logger = logger;
+
         }
 
-        [HttpGet]
+    [HttpGet]
         [Route("GetAll")]
         [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetAll()

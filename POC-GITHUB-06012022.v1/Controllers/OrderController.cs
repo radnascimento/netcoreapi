@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.Enum;
@@ -21,47 +22,43 @@ namespace POC_GITHUB_06012022.v1.Controllers
     public class OrderController : MyControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly ILogger<OrderController> _logger;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, ILogger<OrderController> logger)
         {
             _orderService = orderService;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("GetAll")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(JsonConvert.SerializeObject(await _orderService.GetAll()));
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Get(long id)
         {
             return Ok(JsonConvert.SerializeObject(await _orderService.Get(id)));
         }
 
         [HttpPost]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Post([FromBody] Order value)
         {
             try
             {
                 value.IdUser = IdAuthenticated;
-
-                var validator = new ValidatorOrder();
-
-                var result = await validator.ValidateAsync(value);
-
-                if (!result.IsValid) return NotFound();
-
                 await _orderService.Save(value);
                 
                 return Ok();
             }
             catch(Exception ex)
             {
+                _logger.LogError("Erro trying to save the new Order", ex.Message);
                 return StatusCode(500, "Internal server error");
             }
 
@@ -69,14 +66,27 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "employee,manager")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] Order value)
         {
+
+            value.IdUser = IdAuthenticated;
+            
+            await _orderService.Update(value);
+            
+            return Ok();
+
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "employee,manager")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var order = await _orderService.Get(id);
+            order.IdUser = IdAuthenticated;
+            
+            await _orderService.Delete(order);
+
+            return Ok();
         }
     }
 }

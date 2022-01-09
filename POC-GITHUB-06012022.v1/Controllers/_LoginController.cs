@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using POC_GITHUB_06012022.v1.EntityDTO;
 using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Repository;
@@ -18,11 +19,13 @@ namespace POC_GITHUB_06012022.v1.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
+        private readonly ILogger<_LoginController> _logger;
 
-        public _LoginController(ICustomerService customerService, IMapper mapper)
+        public _LoginController(ICustomerService customerService, IMapper mapper, ILogger<_LoginController> logger)
         {
             _customerService = customerService;
             _mapper = mapper;
+            _logger = logger;
 
         }
 

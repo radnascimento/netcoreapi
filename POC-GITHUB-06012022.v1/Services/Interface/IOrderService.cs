@@ -9,10 +9,14 @@ namespace POC_GITHUB_06012022.v1.Services
     public interface IOrderService
     {
 
+        Task Delete(Order id);
         Task<ICollection<Order>> GetAll();
 
         Task<Order> Get(long id);
 
         Task Save(Order order);
+
+        Task Update(Order order);
+        
     }
 }
