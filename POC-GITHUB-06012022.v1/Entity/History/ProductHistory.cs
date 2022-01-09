@@ -15,10 +15,10 @@ namespace POC_GITHUB_06012022.v1.Entity.History
         public long IdProduct { get; set; }
         [Required]
         public string NameProduct { get; set; }
-
         [Required]
         public int IdStateProduct { get; set; }
-
+        [Required]
+        public decimal UnitPrice { get; set; }
         [Required]
         public DateTime DateOperation { get; set; }
         [Required]

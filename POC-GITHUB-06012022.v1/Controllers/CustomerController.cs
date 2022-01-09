@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
+using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController : MyControllerBase
     {
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
@@ -48,12 +49,11 @@ namespace POC_GITHUB_06012022.v1.Controllers
         [HttpPost]
         public async Task<Customer> Post([FromBody] CustomerDto value)
         {
-
             if (!ModelState.IsValid) return null;
 
-            
-
-            var customer = await _customerService.Save(_mapper.Map<Customer>(value));
+            var customer = _mapper.Map<Customer>(value);
+                customer.IdUser = 0;
+                customer = await _customerService.Save(customer);
 
             return customer;
         }
@@ -67,7 +67,11 @@ namespace POC_GITHUB_06012022.v1.Controllers
             if (!ModelState.IsValid)           // Invokes the build-in
                 return BadRequest(ModelState);
 
-            return Ok(await _customerAddressService.Save(_mapper.Map<CustomerAddress>(customerAddress)));
+
+            var customeraddress = _mapper.Map<CustomerAddress>(customerAddress);
+                customeraddress.IdUser = IdAuthenticated;
+
+            return Ok(await _customerAddressService.Save(customeraddress));
         }
 
         [HttpPut("{id}")]
@@ -76,6 +80,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
         {
             var customer = _mapper.Map<Customer>(value);
             customer.IdCustomer = id;
+            customer.IdUser = IdAuthenticated;
+
             await _customerService.Update(customer);
             
             return Ok();
@@ -89,6 +95,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
             var customer = await _customerService.Get(id);
 
             if (customer == null) return NotFound();
+
+            customer.IdUser = IdAuthenticated;
 
             await _customerService.Delete(customer);
 

@@ -11,27 +11,30 @@ namespace POC_GITHUB_06012022.v1.Entity
 
         [Key]
         public long IdOrder { get; set; }
+        [Required]
         public long IdCustomer { get; set; }
+        [Required]
         public int IdStateOrder { get; set; }
+        [Required]
         public int IdTypePayment { get; set; }
+        [Required]
         public int IdTypeDelivery { get; set; }
+        [Required]
         public long IdAddressDelivery { get; set; }
         public decimal OrderDiscountPrice { get; set; }
         public decimal OrderDeliveryPrice { get; set; }
         [Required]
         public long IdUser { get; set; }
 
-
         public decimal TotalOrderPrice
         {
             get
             {
-                return (Itens.Sum(x => x.UnitPrice) + OrderDeliveryPrice) - OrderDiscountPrice;
+                return (Itens != null ? (Itens.Sum(x => x.UnitPrice) + OrderDeliveryPrice) - OrderDiscountPrice : 0);
 
             }
-
         }
-        
+        [Required]
         public DateTime DateOperation { get; set; }
         public List<OrderItem> Itens { get; set; }
 

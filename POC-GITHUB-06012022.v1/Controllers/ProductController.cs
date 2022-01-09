@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
+using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : MyControllerBase
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -47,8 +48,12 @@ namespace POC_GITHUB_06012022.v1.Controllers
         {
 
             if (!ModelState.IsValid) return null;
-
-            var product = await _productService.Save(_mapper.Map<Product>(value));
+            
+            var product = _mapper.Map<Product>(value);
+            
+            product.IdUser = IdAuthenticated;
+            
+            product = await _productService.Save(product);
 
             return product;
         }
@@ -61,6 +66,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
         {
             var product = _mapper.Map<Product>(value);
             product.IdProduct = id;
+            product.IdUser = IdAuthenticated;
+
             await _productService.Update(product);
 
             return Ok();
@@ -74,6 +81,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
             var customer = await _productService.Get(id);
 
             if (customer == null) return NotFound();
+
+            customer.IdUser = IdAuthenticated;
 
             await _productService.Delete(customer);
 

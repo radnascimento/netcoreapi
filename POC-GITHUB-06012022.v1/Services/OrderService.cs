@@ -3,7 +3,7 @@ using POC_GITHUB_06012022.v1.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using POC_GITHUB_06012022.v1.Enum;
-
+using System;
 
 namespace POC_GITHUB_06012022.v1.Services
 {
@@ -18,7 +18,16 @@ namespace POC_GITHUB_06012022.v1.Services
 
         public async Task Save(Order order)
         {
+            order.DateOperation = DateTime.Now;
             order.IdStateOrder = (int)EnumStateOrder.Saved;
+
+            foreach (var item in order.Itens)
+            {
+                item.IdUser = order.IdUser;
+                item.DateOperation = order.DateOperation;
+                item.IdStateOrderItem = (int)EnumStateOrderItem.Saved;
+            }
+
             await _orderRepository.Save(order);
         }
 

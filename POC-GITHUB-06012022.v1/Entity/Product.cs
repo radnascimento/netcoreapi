@@ -14,6 +14,8 @@ namespace POC_GITHUB_06012022.v1.Entity
         public string NameProduct { get; set; }
         [Required]
         public int IdStateProduct { get; set; }
+        [Required]
+        public decimal UnitPrice { get; set; }
 
         [Required]
         public DateTime DateOperation { get; set; }

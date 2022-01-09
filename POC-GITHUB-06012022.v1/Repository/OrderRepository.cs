@@ -22,17 +22,42 @@ namespace POC_GITHUB_06012022.v1.Repository
         {
             order.DateOperation = DateTime.Now;
 
-            throw new NotImplementedException();
+            _pOCContext.Orders.Add(order);
+
+            await _pOCContext.SaveChangesAsync();
         }
 
         public async Task<ICollection<Order>> GetAll()
         {
-            return _pOCContext.Orders.AsNoTracking().ToList();
+            var orders = _pOCContext.Orders.AsNoTracking().ToList();
+
+            foreach (var item in orders)
+            {
+                var orderitens = _pOCContext.OrderItens.AsNoTracking().Where(x => x.IdOrder == item.IdOrder).ToList();
+
+                if (orderitens != null)
+                {
+                    item.Itens = new List<OrderItem>();
+                    item.Itens = orderitens;
+                }
+            }
+
+            return orders;
         }
 
         public async Task<Order> Get(long id)
         {
-            return _pOCContext.Orders.AsNoTracking().Where(x => x.IdOrder == id).FirstOrDefault();
+            var order =  _pOCContext.Orders.AsNoTracking().Where(x => x.IdOrder == id).FirstOrDefault();
+
+            var orderitens = _pOCContext.OrderItens.AsNoTracking().Where(x => x.IdOrder == order.IdOrder).ToList();
+
+            if (orderitens != null)
+            {
+                order.Itens = new List<OrderItem>();
+                order.Itens = orderitens;
+            }
+
+            return order;
         }
     }
 }

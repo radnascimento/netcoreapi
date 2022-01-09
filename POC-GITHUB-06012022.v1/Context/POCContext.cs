@@ -15,7 +15,11 @@ namespace POC_GITHUB_06012022.v1.Context
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerAddress> CustomerAddress { get; set; }
+
+
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItens { get; set; }
+
         public DbSet<Product> Products { get; set; }
 
         //History
