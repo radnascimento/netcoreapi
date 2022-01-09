@@ -8,9 +8,10 @@ namespace POC_GITHUB_06012022.v1.Repository
 {
     public interface IOrderRepository
     {
+        Task SaveItens(List<OrderItem> orderitens);
         Task<ICollection<Order>> GetAll();
         Task<Order> Get(long id);
-        Task Save(Order order);
+        Task<Order> Save(Order order);
 
 
     }

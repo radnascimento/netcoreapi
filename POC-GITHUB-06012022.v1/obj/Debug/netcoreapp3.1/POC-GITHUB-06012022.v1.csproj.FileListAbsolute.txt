@@ -124,3 +124,6 @@ C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\obj\Debug\netcoreapp3.1\POC-GIT
 C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\obj\Debug\netcoreapp3.1\POC-GITHUB-06012022.v1.dll
 C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\obj\Debug\netcoreapp3.1\POC-GITHUB-06012022.v1.pdb
 C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\obj\Debug\netcoreapp3.1\POC-GITHUB-06012022.v1.genruntimeconfig.cache
+C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+C:\Users\gero_\netcoreapi\POC-GITHUB-06012022.v1\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll

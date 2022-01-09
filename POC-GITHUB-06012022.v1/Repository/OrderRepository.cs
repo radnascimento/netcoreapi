@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using POC_GITHUB_06012022.v1.Context;
 using POC_GITHUB_06012022.v1.Entity;
+using POC_GITHUB_06012022.v1.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,53 @@ namespace POC_GITHUB_06012022.v1.Repository
             _pOCContext = pOCContext;
         }
 
-        public async Task Save(Order order)
+        public async Task<Order> Save(Order order)
         {
-            order.DateOperation = DateTime.Now;
+            //using var transaction = _pOCContext.Database.BeginTransaction();
 
-            _pOCContext.Orders.Add(order);
+            try
+            {
+                //save order
+                var itens = order.Itens;
+                
+                order.Itens = null;
+
+                order.DateOperation = DateTime.Now;
+
+                _pOCContext.Orders.Add(order);
+
+                await _pOCContext.SaveChangesAsync();
+
+                //save itens
+                foreach (var item in itens)
+                {
+                    item.IdOrder = order.IdOrder;
+                    item.IdUser = order.IdUser;
+                    item.DateOperation = order.DateOperation;
+                    item.IdStateOrderItem = (int)EnumStateOrderItem.Saved;
+                }
+
+                await SaveItens(itens);
+
+                //transaction.Commit();
+
+                return order;
+
+            }
+            catch (Exception)
+            {
+                //whether any problem happens it will uncommit the transaction.
+                //transaction.Rollback();
+                throw;
+            }
+        }
+
+        public async Task SaveItens(List<OrderItem> orderitens)
+        {
+            foreach (var item in orderitens)
+            {
+                _pOCContext.OrderItens.Add(item);
+            }
 
             await _pOCContext.SaveChangesAsync();
         }

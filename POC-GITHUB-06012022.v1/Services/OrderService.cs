@@ -20,15 +20,9 @@ namespace POC_GITHUB_06012022.v1.Services
         {
             order.DateOperation = DateTime.Now;
             order.IdStateOrder = (int)EnumStateOrder.Saved;
-
-            foreach (var item in order.Itens)
-            {
-                item.IdUser = order.IdUser;
-                item.DateOperation = order.DateOperation;
-                item.IdStateOrderItem = (int)EnumStateOrderItem.Saved;
-            }
-
-            await _orderRepository.Save(order);
+            
+            order = await _orderRepository.Save(order);
+                       
         }
 
         public async  Task<ICollection<Order>> GetAll()

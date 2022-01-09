@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POC_GITHUB_06012022.v1.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace POC_GITHUB_06012022.v1.Entity
         {
             get
             {
-                return (Itens != null ? (Itens.Sum(x => x.UnitPrice) + OrderDeliveryPrice) - OrderDiscountPrice : 0);
+                return (Itens != null ? (Itens.Sum(x => x.Quantity * x.UnitPrice) + OrderDeliveryPrice) - OrderDiscountPrice : 0);
 
             }
         }

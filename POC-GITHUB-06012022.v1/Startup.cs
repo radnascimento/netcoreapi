@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.AutoMapper;
 using POC_GITHUB_06012022.v1.Context;
+using POC_GITHUB_06012022.v1.FluentValidation;
 using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Repository;
 using POC_GITHUB_06012022.v1.Services;
@@ -38,19 +40,21 @@ namespace POC_GITHUB_06012022.v1
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddControllers();
 
-            services.AddControllers().AddJsonOptions(options => {
+            services.AddControllers().AddJsonOptions(options =>
+            {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 options.JsonSerializerOptions.DictionaryKeyPolicy = null;
 
             });
-            //services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+            //FluentValidation
+            services.AddMvc(option => option.Filters.Add(new ValidationFilter()))
+                    .AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddDbContext<POCContext>(opt => opt.UseInMemoryDatabase("POCContext"));
 
@@ -102,7 +106,7 @@ namespace POC_GITHUB_06012022.v1
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer'[space] and then your token in the text input below. \r\n\r\nExample: \"Bearer 12345abcdef\"", 
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer'[space] and then your token in the text input below. \r\n\r\nExample: \"Bearer 12345abcdef\"",
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {

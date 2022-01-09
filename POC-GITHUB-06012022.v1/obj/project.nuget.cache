@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "c0uM+MPh0o4/49ZCPl5nckXHEdEwmwcSXYbMFYBov2ZLhGi+XIiKZJ3qJrqjrabnHl/gvb8lM0KKf/eCOGtdLQ==",
+  "dgSpecHash": "J2yPCnsEj0Y455bv5apr2rRTSBAWlbBoNUcj3/ip8NDQogoRqa8Dmb+gISLwDIzHKEqIQAuOzn21fGz2vtXqvw==",
   "success": true,
   "projectFilePath": "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gero_\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\gero_\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\gero_\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\gero_\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.6\\fluentvalidation.aspnetcore.10.3.6.nupkg.sha512",
+    "C:\\Users\\gero_\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\gero_\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\gero_\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\gero_\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

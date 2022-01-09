@@ -5,6 +5,7 @@ using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.Enum;
 using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
+using POC_GITHUB_06012022.v1.Validator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,10 +50,17 @@ namespace POC_GITHUB_06012022.v1.Controllers
             {
                 value.IdUser = IdAuthenticated;
 
+                var validator = new ValidatorOrder();
+
+                var result = await validator.ValidateAsync(value);
+
+                if (!result.IsValid) return NotFound();
+
                 await _orderService.Save(value);
+                
                 return Ok();
             }
-            catch
+            catch(Exception ex)
             {
                 return StatusCode(500, "Internal server error");
             }
