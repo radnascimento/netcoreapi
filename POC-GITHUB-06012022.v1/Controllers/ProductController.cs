@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
@@ -26,14 +27,14 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(JsonConvert.SerializeObject(await _productService.GetAll()));
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(JsonConvert.SerializeObject(await _productService.Get(id)));
@@ -41,7 +42,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
 
         [HttpPost]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<Product> Post([FromBody] ProductDto value)
         {
 
@@ -55,7 +56,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Put(long id, [FromBody] ProductDto value)
         {
             var product = _mapper.Map<Product>(value);
@@ -67,7 +68,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "employee,manager")]
+        [Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Delete(int id)
         {
             var customer = await _productService.Get(id);

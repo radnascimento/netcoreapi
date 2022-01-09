@@ -18,7 +18,8 @@ namespace POC_GITHUB_06012022.v1.Entity
 
         public int IdStateOrderItem { get; set; }
 
-        public int Id { get; set; }
+        [Required]
+        public long IdUser { get; set; }
         public DateTime DateOperation { get; set; }
 
     }

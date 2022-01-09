@@ -39,7 +39,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
             if (customer == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });
 
-            var user = UserRepository.Get(model.Username, model.Password);
+            var user = UserRepository.Get(model.Username, model.Password, model.Password);
 
             if (user == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj": {}
+    "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj": {
+    "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
+        "projectUniqueName": "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
         "projectName": "POC-GITHUB-06012022.v1",
-        "projectPath": "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
+        "projectPath": "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
         "packagesPath": "C:\\Users\\gero_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\obj\\",
+        "outputPath": "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gero_\\AppData\\Roaming\\NuGet\\NuGet.Config",

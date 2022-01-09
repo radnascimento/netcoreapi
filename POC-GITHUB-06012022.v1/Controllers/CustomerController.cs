@@ -51,6 +51,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
             if (!ModelState.IsValid) return null;
 
+            
+
             var customer = await _customerService.Save(_mapper.Map<Customer>(value));
 
             return customer;
@@ -69,7 +71,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "employee,manager")]
+        //[Authorize(Roles = "employee,manager")]
         public async Task<IActionResult> Put(long id, [FromBody] CustomerDto value)
         {
             var customer = _mapper.Map<Customer>(value);

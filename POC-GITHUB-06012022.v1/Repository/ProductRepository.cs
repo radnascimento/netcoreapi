@@ -1,10 +1,13 @@
-﻿using POC_GITHUB_06012022.v1.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using POC_GITHUB_06012022.v1.Context;
 using POC_GITHUB_06012022.v1.Entity;
-using POC_GITHUB_06012022.v1.Enum;
+using POC_GITHUB_06012022.v1.Entity.History;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+
 
 namespace POC_GITHUB_06012022.v1.Repository
 {
@@ -20,7 +23,7 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<ICollection<Product>> GetAll()
         {
-            return _pOCContext.Products.ToList();
+            return _pOCContext.Products.AsNoTracking().ToList();
         }
 
         public async Task<Product> Save(Product product)
@@ -36,7 +39,7 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<Product> Get(long id)
         {
-            return _pOCContext.Products.Where(x => x.IdProduct == id).FirstOrDefault();
+            return _pOCContext.Products.AsNoTracking().Where(x => x.IdProduct == id).FirstOrDefault();
         }
 
         public async Task<Product> Update(Product product)
@@ -64,10 +67,26 @@ namespace POC_GITHUB_06012022.v1.Repository
             
         }
 
-        //lixo
+        
         public async Task SaveHistory(long id)
         {
-            //todo
+            var product = _pOCContext.Products.AsNoTracking().Where(x => x.IdProduct == id).FirstOrDefault();
+
+            if (product != null)
+            {
+                long IdProductHistory = _pOCContext.ProductHistory.Count();
+
+                _pOCContext.ProductHistory.Add(new ProductHistory
+                {
+                    IdProductHistory = (IdProductHistory == 0 ? 1 : IdProductHistory + 1),
+                    IdProduct = product.IdProduct,
+                    NameProduct = product.NameProduct,
+                    IdStateProduct = product.IdStateProduct,
+                    DateOperation = product.DateOperation
+                });
+
+                await _pOCContext.SaveChangesAsync();
+            }
         }
     }
 }

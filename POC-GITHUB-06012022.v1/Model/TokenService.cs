@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using POC_GITHUB_06012022.v1.Entity;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-
 
 namespace POC_GITHUB_06012022.v1.Model
 {
@@ -17,7 +17,8 @@ namespace POC_GITHUB_06012022.v1.Model
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Username.ToString()),
+                    new Claim(ClaimTypes.Name, user.IdUser.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),

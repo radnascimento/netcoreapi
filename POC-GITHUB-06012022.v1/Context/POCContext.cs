@@ -20,8 +20,8 @@ namespace POC_GITHUB_06012022.v1.Context
 
         //History
         public DbSet<CustomerHistory> CustomerHistory { get; set; }
-
-
+        public DbSet<ProductHistory> ProductHistory { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //The code below will not work due to the project is using EFCore Database in memory

@@ -20,7 +20,8 @@ namespace POC_GITHUB_06012022.v1.Entity
         public int IdStateCustomerAddress { get; set; }
         public int Id { get; set; }
         public DateTime DateOperation { get; set; }
-
+        [Required]
+        public long IdUser { get; set; }
         public Customer Customer { get; set; }
 
     }

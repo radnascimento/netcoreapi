@@ -30,7 +30,9 @@ namespace POC_GITHUB_06012022.v1.Services
 
         public async Task<Product> Get(long id)
         {
-            return await _productRepository.Get(id);
+            var product = await _productRepository.Get(id);
+
+            return product;
         }
 
         public async Task<Product> Update(Product product)
@@ -41,6 +43,7 @@ namespace POC_GITHUB_06012022.v1.Services
                 product = await _productRepository.Update(product);
             }
             else { throw new ArgumentException("Not found"); }
+
 
             return product;
         }

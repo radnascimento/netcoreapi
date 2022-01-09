@@ -1,4 +1,5 @@
-﻿using POC_GITHUB_06012022.v1.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using POC_GITHUB_06012022.v1.Context;
 using POC_GITHUB_06012022.v1.Entity;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,12 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<ICollection<Order>> GetAll()
         {
-            return _pOCContext.Orders.ToList();
+            return _pOCContext.Orders.AsNoTracking().ToList();
         }
 
         public async Task<Order> Get(long id)
         {
-            return _pOCContext.Orders.Where(x => x.IdOrder == id).FirstOrDefault();
+            return _pOCContext.Orders.AsNoTracking().Where(x => x.IdOrder == id).FirstOrDefault();
         }
     }
 }

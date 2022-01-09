@@ -29,7 +29,7 @@ namespace POC_GITHUB_06012022.v1.Services
         public async Task<Customer> Save(Customer customer)
         {
             customer.IdStateCustomer = (int)EnumStateCustomer.Saved;
-
+            customer.IdUser = 1;
             return await _customerReposity.Save(customer);
         }
 

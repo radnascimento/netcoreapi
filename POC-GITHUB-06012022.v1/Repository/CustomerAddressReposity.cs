@@ -1,4 +1,5 @@
-﻿using POC_GITHUB_06012022.v1.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using POC_GITHUB_06012022.v1.Context;
 using POC_GITHUB_06012022.v1.Entity;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<CustomerAddress> Get(long id)
         {
-            var customeradress = _pOCContext.CustomerAddress.Where(x => x.IdCustomer == id).ToList().FirstOrDefault();
+            var customeradress = _pOCContext.CustomerAddress.AsNoTracking().Where(x => x.IdCustomer == id).ToList().FirstOrDefault();
 
             if (customeradress != null) customeradress.Customer = null;
 

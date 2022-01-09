@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E8Fhu2ZN/uY56Cy42ilWZUH7QPRGlOpLqCThYEb2OkAwW4OV60qgCQRdD32a0OOacnnQte4kKnD5Tgr+0ZVoZQ==",
+  "dgSpecHash": "c0uM+MPh0o4/49ZCPl5nckXHEdEwmwcSXYbMFYBov2ZLhGi+XIiKZJ3qJrqjrabnHl/gvb8lM0KKf/eCOGtdLQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gero_\\source\\repos\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
+  "projectFilePath": "C:\\Users\\gero_\\netcoreapi\\POC-GITHUB-06012022.v1\\POC-GITHUB-06012022.v1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gero_\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\gero_\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

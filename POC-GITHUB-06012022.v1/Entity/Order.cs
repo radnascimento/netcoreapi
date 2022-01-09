@@ -18,6 +18,8 @@ namespace POC_GITHUB_06012022.v1.Entity
         public long IdAddressDelivery { get; set; }
         public decimal OrderDiscountPrice { get; set; }
         public decimal OrderDeliveryPrice { get; set; }
+        [Required]
+        public long IdUser { get; set; }
 
 
         public decimal TotalOrderPrice
@@ -29,9 +31,7 @@ namespace POC_GITHUB_06012022.v1.Entity
             }
 
         }
-
-
-        public int Id { get; set; }
+        
         public DateTime DateOperation { get; set; }
         public List<OrderItem> Itens { get; set; }
 

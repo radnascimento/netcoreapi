@@ -3,6 +3,7 @@ using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.Entity.History;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<Customer> Get(string name)
         {
-            return _pOCContext.Customers.ToList().FirstOrDefault();
+            return _pOCContext.Customers.AsNoTracking().ToList().FirstOrDefault();
 
         }
 
@@ -52,7 +53,8 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<Customer> Get(long id)
         {
-            var customer = _pOCContext.Customers.Where(x => x.IdCustomer == id).FirstOrDefault();
+
+            var customer = _pOCContext.Customers.Where(x => x.IdCustomer == id).AsNoTracking().FirstOrDefault();
 
             return customer;
 
@@ -69,13 +71,13 @@ namespace POC_GITHUB_06012022.v1.Repository
 
         public async Task<List<Customer>> GetAll()
         {
-            return _pOCContext.Customers.ToList();
+            return _pOCContext.Customers.AsNoTracking().ToList();
         }
 
 
         public async Task SaveHistory(long id)
         {
-            var customer = _pOCContext.Customers.Where(x => x.IdCustomer == id).FirstOrDefault();
+            var customer = _pOCContext.Customers.AsNoTracking().Where(x => x.IdCustomer == id).FirstOrDefault();
 
             if (customer != null)
             {

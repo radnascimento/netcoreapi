@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.Enum;
+using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,7 +17,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrderController : MyControllerBase
     {
         private readonly IOrderService _orderService;
 
@@ -50,7 +52,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
                 IdOrder = 1,
                 IdCustomer = 1,
                 IdStateOrder = (int)EnumStateOrder.Saved,
-                Id = 1,
+                IdUser = IdAuthenticated,
                 DateOperation = DateTime.Now,
                 Itens = new List<OrderItem>()
             };
@@ -69,6 +71,8 @@ namespace POC_GITHUB_06012022.v1.Controllers
         {
             try
             {
+                value.IdUser = IdAuthenticated;
+
                 await _orderService.Save(value);
                 return Ok();
             }

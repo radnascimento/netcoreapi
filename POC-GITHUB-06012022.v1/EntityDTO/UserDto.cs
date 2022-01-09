@@ -12,5 +12,8 @@ namespace POC_GITHUB_06012022.v1.EntityDTO
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
+
+        public string Email { get; set; }
+                
     }
 }
