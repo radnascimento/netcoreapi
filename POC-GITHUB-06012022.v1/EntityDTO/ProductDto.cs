@@ -8,5 +8,7 @@ namespace POC_GITHUB_06012022.v1.EntityDTO
     public class ProductDto
     {
         public string NameProduct { get; set; }
+        public decimal UnitPrice { get; set; }
+
     }
 }

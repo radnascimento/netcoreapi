@@ -26,6 +26,20 @@ namespace POC_GITHUB_06012022.v1.AutoMapper
                 ;
 
 
+            CreateMap<Order, OrderDto>()
+            .ForMember(dest => dest.IdCustomer, opts => opts.MapFrom(src => src.IdCustomer)).ReverseMap()
+            .ForMember(dest => dest.IdTypePayment, opts => opts.MapFrom(src => src.IdTypePayment)).ReverseMap()
+             .ForMember(dest => dest.IdTypeDelivery, opts => opts.MapFrom(src => src.IdTypeDelivery)).ReverseMap()
+            .ForMember(dest => dest.IdAddressDelivery, opts => opts.MapFrom(src => src.IdAddressDelivery)).ReverseMap()
+            .ForMember(dest => dest.OrderDeliveryPrice, opts => opts.MapFrom(src => src.OrderDeliveryPrice)).ReverseMap()
+            .ForMember(dest => dest.Itens, opts => opts.MapFrom(src => src.Itens)).ReverseMap();
+
+
+            CreateMap<OrderItem, OrderItemDto>()
+            .ForMember(dest => dest.IdProduct, opts => opts.MapFrom(src => src.IdProduct)).ReverseMap()
+            .ForMember(dest => dest.Quantity, opts => opts.MapFrom(src => src.Quantity)).ReverseMap()
+            .ForMember(dest => dest.UnitPrice, opts => opts.MapFrom(src => src.UnitPrice)).ReverseMap();
+
         }
     }
 }

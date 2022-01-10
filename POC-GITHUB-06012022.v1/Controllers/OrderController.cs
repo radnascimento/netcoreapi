@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
+using POC_GITHUB_06012022.v1.EntityDTO;
 using POC_GITHUB_06012022.v1.Enum;
 using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
@@ -23,11 +25,13 @@ namespace POC_GITHUB_06012022.v1.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly ILogger<OrderController> _logger;
+        private readonly IMapper _mapper;
 
-        public OrderController(IOrderService orderService, ILogger<OrderController> logger)
+        public OrderController(IOrderService orderService, ILogger<OrderController> logger, IMapper mapper)
         {
             _orderService = orderService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -47,12 +51,14 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         [HttpPost]
         [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> Post([FromBody] Order value)
+        public async Task<IActionResult> Post([FromBody] OrderDto value)
         {
             try
             {
-                value.IdUser = IdAuthenticated;
-                await _orderService.Save(value);
+                var order = _mapper.Map<Order>(value);
+
+                order.IdUser = IdAuthenticated;
+                await _orderService.Save(order);
                 
                 return Ok();
             }
