@@ -75,7 +75,7 @@ namespace POC_GITHUB_06012022.v1
             //Repository
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<ICustomerAddressRepository, CustomerAddressReposity>();
+            services.AddTransient<ICustomerAddressRepository, CustomerAddressRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);

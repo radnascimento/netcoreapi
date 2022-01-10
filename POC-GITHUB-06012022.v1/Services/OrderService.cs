@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using POC_GITHUB_06012022.v1.Enum;
 using System;
+using POC_GITHUB_06012022.v1.Entity.History;
 
 namespace POC_GITHUB_06012022.v1.Services
 {
@@ -20,12 +21,12 @@ namespace POC_GITHUB_06012022.v1.Services
         {
             order.DateOperation = DateTime.Now;
             order.IdStateOrder = (int)EnumStateOrder.Saved;
-            
+
             order = await _orderRepository.Save(order);
-                       
+
         }
 
-        public async  Task<ICollection<Order>> GetAll()
+        public async Task<ICollection<Order>> GetAll()
         {
             return await _orderRepository.GetAll();
         }
@@ -35,14 +36,25 @@ namespace POC_GITHUB_06012022.v1.Services
             return await _orderRepository.Get(id);
         }
 
-        public async Task Update(Order order)
+        public async Task Update(Order order, int idstateorder)
         {
+            order.IdStateOrder = idstateorder;
             await _orderRepository.Update(order);
         }
 
         public async Task Delete(Order id)
         {
             await _orderRepository.Delete(id);
+        }
+
+        public async Task InTransit(Order order)
+        {
+            await _orderRepository.InTransit(order);
+        }
+
+        public async Task<List<OrderHistory>> GetHistory(long id)
+        {
+            return await _orderRepository.GetHistory(id);
         }
     }
 }

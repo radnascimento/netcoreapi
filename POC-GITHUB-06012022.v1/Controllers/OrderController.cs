@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using POC_GITHUB_06012022.v1.Entity;
 using POC_GITHUB_06012022.v1.EntityDTO;
 using POC_GITHUB_06012022.v1.Enum;
+using POC_GITHUB_06012022.v1.Infrastructure;
 using POC_GITHUB_06012022.v1.Model;
 using POC_GITHUB_06012022.v1.Services;
 using POC_GITHUB_06012022.v1.Validator;
@@ -42,11 +43,20 @@ namespace POC_GITHUB_06012022.v1.Controllers
             return Ok(JsonConvert.SerializeObject(await _orderService.GetAll()));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id},{history}")]
         [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(long id, bool history = false)
         {
-            return Ok(JsonConvert.SerializeObject(await _orderService.Get(id)));
+            if (!history)
+            {
+                return Ok(JsonConvert.SerializeObject(await _orderService.Get(id)));
+            }
+            else if (history)
+            {
+                return Ok(JsonConvert.SerializeObject(await _orderService.GetHistory(id)));
+            }
+            else return NotFound();
+
         }
 
         [HttpPost]
@@ -59,10 +69,10 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
                 order.IdUser = IdAuthenticated;
                 await _orderService.Save(order);
-                
+
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError("Erro trying to save the new Order", ex.Message);
                 return StatusCode(500, "Internal server error");
@@ -70,15 +80,22 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> Put(int id, [FromBody] Order value)
-        {
 
-            value.IdUser = IdAuthenticated;
-            
-            await _orderService.Update(value);
-            
+        
+        [HttpPut("{id},{idstateorder}")]
+        [Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Put(int id, [FromBody] OrderDto value, int idstateorder)
+        {
+            if (idstateorder < 1 ) return BadRequest("Parameter idstateorder is required. For more information check EnumStateOrder");
+
+            //todo validade idstateorder
+
+            var order = _mapper.Map<Order>(value);
+
+            order.IdUser = IdAuthenticated;
+
+            await _orderService.Update(order, idstateorder);
+
             return Ok();
 
         }
@@ -89,7 +106,7 @@ namespace POC_GITHUB_06012022.v1.Controllers
         {
             var order = await _orderService.Get(id);
             order.IdUser = IdAuthenticated;
-            
+
             await _orderService.Delete(order);
 
             return Ok();

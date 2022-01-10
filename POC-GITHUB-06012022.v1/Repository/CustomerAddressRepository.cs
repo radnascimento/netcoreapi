@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace POC_GITHUB_06012022.v1.Repository
 {
-    public class CustomerAddressReposity : ICustomerAddressRepository
+    public class CustomerAddressRepository : ICustomerAddressRepository
     {
         private readonly POCContext _pOCContext;
 
-        public CustomerAddressReposity(POCContext pOCContext)
+        public CustomerAddressRepository(POCContext pOCContext)
         {
             _pOCContext = pOCContext;
         }

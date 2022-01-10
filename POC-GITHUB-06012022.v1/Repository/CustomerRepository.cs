@@ -99,8 +99,9 @@ namespace POC_GITHUB_06012022.v1.Repository
             }
         }
 
-
-
-
+        public async Task<List<CustomerHistory>> GetHistory(long id)
+        {
+           return _pOCContext.CustomerHistory.AsNoTracking().Where(x => x.IdCustomer == id).ToList();
+        }
     }
 }

@@ -88,5 +88,10 @@ namespace POC_GITHUB_06012022.v1.Repository
                 await _pOCContext.SaveChangesAsync();
             }
         }
+
+        public async Task<List<ProductHistory>> GetHistory(long id)
+        {
+            return _pOCContext.ProductHistory.Where(x => x.IdProduct == id).ToList();
+        }
     }
 }

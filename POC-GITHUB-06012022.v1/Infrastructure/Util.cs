@@ -21,13 +21,12 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumTypePayment)))
+            foreach (var item in EnumTypePayment.GetValues(typeof(EnumTypePayment)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }
 
             return JsonConvert.SerializeObject(utilEnums).ToString();
-
         }
 
 
@@ -35,7 +34,7 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumTypeDelivery)))
+            foreach (var item in EnumTypeDelivery.GetValues(typeof(EnumTypeDelivery)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }
@@ -43,7 +42,6 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
             return JsonConvert.SerializeObject(utilEnums).ToString();
 
         }
-
     
 
         public static string GetEnumCustomerAddress()
@@ -63,7 +61,7 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumStateCustomer)))
+            foreach (var item in EnumStateCustomer.GetValues(typeof(EnumStateCustomer)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }
@@ -75,7 +73,7 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumStateOrder)))
+            foreach (var item in EnumStateOrder.GetValues(typeof(EnumStateOrder)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }
@@ -87,7 +85,7 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumStateProduct)))
+            foreach (var item in EnumStateProduct.GetValues(typeof(EnumStateProduct)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }
@@ -100,7 +98,7 @@ namespace POC_GITHUB_06012022.v1.Infrastructure
         {
             List<UtilEnum> utilEnums = new List<UtilEnum>();
 
-            foreach (var item in EnumCustomerAddress.GetValues(typeof(EnumStateOrderItem)))
+            foreach (var item in EnumStateOrderItem.GetValues(typeof(EnumStateOrderItem)))
             {
                 utilEnums.Add(new UtilEnum { id = (int)item, Description = item.ToString() });
             }

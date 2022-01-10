@@ -38,11 +38,20 @@ namespace POC_GITHUB_06012022.v1.Controllers
             return Ok(JsonConvert.SerializeObject(await _productService.GetAll()));
         }
 
-        [HttpGet("{id}")]
-        [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{id},{history}")]
+        //[Authorize(Roles = "employee,manager")]
+        public async Task<IActionResult> Get(int id, bool history = false)
         {
-            return Ok(JsonConvert.SerializeObject(await _productService.Get(id)));
+            if (!history)
+            {
+                return Ok(JsonConvert.SerializeObject(await _productService.Get(id)));
+            }
+            else if (history)
+            {
+                return Ok(JsonConvert.SerializeObject(await _productService.GetHistory(id)));
+            }
+            else return NotFound();
+
         }
 
 
@@ -64,15 +73,15 @@ namespace POC_GITHUB_06012022.v1.Controllers
 
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id},{idstateproduct}")]
         [Authorize(Roles = "employee,manager")]
-        public async Task<IActionResult> Put(long id, [FromBody] ProductDto value)
+        public async Task<IActionResult> Put(long id, [FromBody] ProductDto value, int idstateproduct)
         {
             var product = _mapper.Map<Product>(value);
             product.IdProduct = id;
             product.IdUser = IdAuthenticated;
 
-            await _productService.Update(product);
+            await _productService.Update(product, idstateproduct);
 
             return Ok();
         }

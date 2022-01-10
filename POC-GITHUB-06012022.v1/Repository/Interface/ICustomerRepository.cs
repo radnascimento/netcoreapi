@@ -1,4 +1,5 @@
 ﻿using POC_GITHUB_06012022.v1.Entity;
+using POC_GITHUB_06012022.v1.Entity.History;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace POC_GITHUB_06012022.v1.Repository
         Task Delete(Customer customer);
 
         Task<List<Customer>> GetAll();
+        Task<List<CustomerHistory>> GetHistory(long id);
+
 
     }
 

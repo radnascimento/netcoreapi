@@ -1,4 +1,5 @@
 ﻿using POC_GITHUB_06012022.v1.Entity;
+using POC_GITHUB_06012022.v1.Entity.History;
 using POC_GITHUB_06012022.v1.Enum;
 using POC_GITHUB_06012022.v1.Repository;
 using System;
@@ -11,14 +12,14 @@ namespace POC_GITHUB_06012022.v1.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerReposity;
-        private readonly ICustomerAddressRepository _customerAddressReposity;
+        private readonly ICustomerAddressRepository _customerAddressRepository;
 
         public CustomerService(ICustomerRepository customerReposity,
-            ICustomerAddressRepository customerAddressReposity
+            ICustomerAddressRepository customerAddressRepository
             )
         {
             _customerReposity = customerReposity;
-            _customerAddressReposity = customerAddressReposity;
+            _customerAddressRepository = customerAddressRepository;
         }
 
         public async Task<Customer> Get(string name)
@@ -33,12 +34,12 @@ namespace POC_GITHUB_06012022.v1.Services
             return await _customerReposity.Save(customer);
         }
 
-        public async Task<Customer> Update(Customer customer)
+        public async Task<Customer> Update(Customer customer, int idstatecustomer)
         {
 
             if (await Get(customer.IdCustomer) != null)
             {
-                customer.IdStateCustomer = (int)EnumStateCustomer.Updated;
+                customer.IdStateCustomer = idstatecustomer;
                 customer = await _customerReposity.Update(customer);
             }
             else { throw new ArgumentException("Not found"); }
@@ -88,7 +89,7 @@ namespace POC_GITHUB_06012022.v1.Services
             {
                 if (customer.CustomerAddress == null)
                 {
-                    var customerAddress = await _customerAddressReposity.Get(customer.IdCustomer);
+                    var customerAddress = await _customerAddressRepository.Get(customer.IdCustomer);
 
                     if (customerAddress != null)
                     {
@@ -101,5 +102,12 @@ namespace POC_GITHUB_06012022.v1.Services
             }
             return customer;
         }
+
+        public async Task<List<CustomerHistory>> GetHistory(long id)
+        {
+            return await _customerReposity.GetHistory(id);
+        }
+
+        
     }
 }
